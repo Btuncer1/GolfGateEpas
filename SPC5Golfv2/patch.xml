@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SPC5-Patch version="1.0.0">
+  <!--It is your patch repository, do not break your XML File.-->
+  <files>
+    <file componentId="com.st.spc5.components.lld.spc58xgxx_rla" version="1.18.0.202310201228" path="component/lib/src/can_lld.c" user="false">
+      <diff><![CDATA[--- components/spc58xgxx_low_level_drivers_component_rla/lib/src/can_lld.c
++++ components/spc58xgxx_low_level_drivers_component_rla/lib/src/can_lld.c
+@@ -816,9 +816,11 @@
+ IRQ_HANDLER(SPC5_CAN_SUB_0_M_CAN_3_L0_HANDLER) {
+ 
+   IRQ_PROLOGUE();
++  uint32_t msgbuf=0;
++  CANRxFrame crfp;
++  CAND4.config->fifo0_new_message_callback(msgbuf, crfp);
++  //can_lld_l0_handler(&CAND4);
+ 
+-  can_lld_l0_handler(&CAND4);
+-
+   IRQ_EPILOGUE();
+ }
+ 
+@@ -906,9 +908,11 @@
+ IRQ_HANDLER(SPC5_CAN_SUB_1_M_CAN_1_L0_HANDLER) {
+ 
+   IRQ_PROLOGUE();
++  uint32_t msgbuf=0;
++  CANRxFrame crfp;
++  CAND7.config->fifo0_new_message_callback(msgbuf, crfp);
++  //can_lld_l0_handler(&CAND7);
+ 
+-  can_lld_l0_handler(&CAND7);
+-
+   IRQ_EPILOGUE();
+ }
+ 
+@@ -936,7 +940,9 @@
+ IRQ_HANDLER(SPC5_CAN_SUB_1_M_CAN_2_L0_HANDLER) {
+ 
+   IRQ_PROLOGUE();
+-
++  /*uint32_t msgbuf=0;
++  CANRxFrame crfp;
++  CAND8.config->fifo0_new_message_callback(msgbuf, crfp);*/
+   can_lld_l0_handler(&CAND8);
+ 
+   IRQ_EPILOGUE();]]></diff>
+    </file>
+    <file componentId="com.st.spc5.components.lld.spc58xgxx_rla" version="1.18.0.202310201228" path="component/lib/include/can_lld.h" user="false">
+      <diff><![CDATA[--- components/spc58xgxx_low_level_drivers_component_rla/lib/include/can_lld.h
++++ components/spc58xgxx_low_level_drivers_component_rla/lib/include/can_lld.h
+@@ -805,6 +805,7 @@
+ extern "C" {
+ #endif
+ void can_lld_init(void);
++void can_lld_readBuffer(CANDriver *canp, uint8_t buffertype, uint32_t msgbuf, CANRxFrame *crfp);
+ void can_lld_start(CANDriver *canp, CANConfig *config);
+ void can_lld_stop(CANDriver *canp);
+ uint32_t can_lld_transmit(CANDriver *canp, uint32_t msgbuf, CANTxFrame *ctfp);]]></diff>
+    </file>
+  </files>
+</SPC5-Patch>

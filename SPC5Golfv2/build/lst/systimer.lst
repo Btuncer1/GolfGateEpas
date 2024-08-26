@@ -1,0 +1,1584 @@
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 1
+
+
+   1              		.file	"systimer.c"
+   2              		.section	".text","axv"
+   3              	.Ltext0:
+   4              		.cfi_sections	.debug_frame
+   5              		.section	.text.sysTimeSetup,"axv",@progbits
+   6              		.align 1
+   7              		.p2align 4,,15
+   8              		.globl sysTimeSetup
+   9              		.type	sysTimeSetup, @function
+  10              	sysTimeSetup:
+  11              	.LFB2:
+  12              		.file 1 "./components/spc58xgxx_osal_component_rla/lib/src/systimer.c"
+  13              		.loc 1 52 0
+  14              		.cfi_startproc
+  15              	.LVL0:
+  16 0000 182106F0 		e_stwu %r1,-16(%r1)
+  17              	.LCFI0:
+  18              		.cfi_def_cfa_offset 16
+  19 0004 0080     		se_mflr %r0
+  20 0006 D3F1     		se_stw %r31,12(%r1)
+  21 0008 D501     		se_stw %r0,20(%r1)
+  22              		.cfi_offset 65, 4
+  23              		.cfi_offset 31, -4
+  24              		.loc 1 52 0
+  25 000a 013F     		se_mr %r31,%r3
+  26              		.loc 1 58 0
+  27 000c 70C40004 		e_li %r6,8196
+  28              		.loc 1 59 0
+  29 0010 49E3     		se_li %r3,30
+  30              	.LVL1:
+  31              		.loc 1 58 0
+  32 0012 70FEE404 		e_lis %r7,0xf404
+  33              		.loc 1 59 0
+  34 0016 4924     		se_li %r4,18
+  35              		.loc 1 58 0
+  36 0018 70E8C224 		e_or2i %r7,16932
+  37 001c B067     		se_sth %r6,0(%r7)
+  38              		.loc 1 59 0
+  39 001e 78000001 		e_bl SPCSetPeripheralClockMode
+  40              	.LVL2:
+  41              		.loc 1 61 0
+  42 0022 4815     		se_li %r5,1
+  43 0024 70DEE7F8 		e_lis %r6,0xf7f8
+  44              		.loc 1 60 0
+  45 0028 70E0E5F5 		e_lis %r7,0x5f5
+  46              		.loc 1 61 0
+  47 002c 6516     		se_bseti %r6,17
+  48              		.loc 1 60 0
+  49 002e 18E7D1E1 		e_ori %r7,%r7,57600
+  50              		.loc 1 61 0
+  51 0032 D056     		se_stw %r5,0(%r6)
+  52              		.loc 1 60 0
+  53 0034 7C67FB96 		divwu %r3,%r7,%r31
+  54              		.loc 1 65 0
+  55 0038 4837     		se_li %r7,3
+  56              		.loc 1 60 0
+  57 003a 186384FF 		e_addi %r3,%r3,-1
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 2
+
+
+  58              	.LVL3:
+  59              		.loc 1 62 0
+  60 003e 54660100 		e_stw %r3,256(%r6)
+  61              		.loc 1 63 0
+  62 0042 54660104 		e_stw %r3,260(%r6)
+  63              		.loc 1 64 0
+  64 0046 54A6010C 		e_stw %r5,268(%r6)
+  65              		.loc 1 65 0
+  66 004a 54E60108 		e_stw %r7,264(%r6)
+  67              		.loc 1 66 0
+  68 004e C501     		se_lwz %r0,20(%r1)
+  69 0050 0090     		se_mtlr %r0
+  70              		.cfi_restore 65
+  71 0052 C3F1     		se_lwz %r31,12(%r1)
+  72              	.LVL4:
+  73 0054 20F1     		se_addi %r1,16
+  74              	.LCFI1:
+  75              		.cfi_restore 31
+  76              		.cfi_def_cfa_offset 0
+  77 0056 0004     		se_blr
+  78              		.cfi_endproc
+  79              	.LFE2:
+  80              		.size	sysTimeSetup, .-sysTimeSetup
+  81              		.section	.text.sysTimeReset,"axv",@progbits
+  82              		.align 1
+  83              		.p2align 4,,15
+  84              		.globl sysTimeReset
+  85              		.type	sysTimeReset, @function
+  86              	sysTimeReset:
+  87              	.LFB3:
+  88              		.loc 1 74 0
+  89              		.cfi_startproc
+  90              		.loc 1 76 0
+  91 0000 70FEE7F8 		e_lis %r7,0xf7f8
+  92 0004 6517     		se_bseti %r7,17
+  93 0006 50C7010C 		e_lwz %r6,268(%r7)
+  94 000a 2206     		se_cmpli %r6,1
+  95 000c 7A120006 		e_beq %cr0,.L5
+  96 0010 0004     		se_blr
+  97              	.L5:
+  98              		.loc 1 77 0
+  99 0012 54C7010C 		e_stw %r6,268(%r7)
+ 100 0016 0004     		se_blr
+ 101              		.cfi_endproc
+ 102              	.LFE3:
+ 103              		.size	sysTimeReset, .-sysTimeReset
+ 104              		.section	".text","axv"
+ 105              	.Letext0:
+ 106              		.file 2 "c:\\spc5studio-6.0\\eclipse\\plugins\\com.st.tools.spc5.tools.gnu.gcc.ppcvle.win32_4.9.4.
+ 107              		.file 3 "c:\\spc5studio-6.0\\eclipse\\plugins\\com.st.tools.spc5.tools.gnu.gcc.ppcvle.win32_4.9.4.
+ 108              		.file 4 "./components/spc58xgxx_platform_component_rla/lib/include/typedefs.h"
+ 109              		.file 5 "./components/spc58xgxx_platform_component_rla/lib/include/spc58xgxx.h"
+ 110              		.file 6 "./components/spc58xgxx_clock_component_rla/lib/include/clock.h"
+ 111              		.section	.debug_info,"",@progbits
+ 112              	.Ldebug_info0:
+ 113 0000 000005BB 		.4byte	0x5bb
+ 114 0004 0002     		.2byte	0x2
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 3
+
+
+ 115 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 116 000a 04       		.byte	0x4
+ 117 000b 01       		.uleb128 0x1
+ 118 000c 00000000 		.4byte	.LASF33
+ 119 0010 01       		.byte	0x1
+ 120 0011 00000000 		.4byte	.LASF34
+ 121 0015 00000000 		.4byte	.LASF35
+ 122 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 123 001d 00000000 		.4byte	0
+ 124 0021 00000000 		.4byte	0
+ 125 0025 00000000 		.4byte	.Ldebug_line0
+ 126 0029 02       		.uleb128 0x2
+ 127 002a 01       		.byte	0x1
+ 128 002b 06       		.byte	0x6
+ 129 002c 00000000 		.4byte	.LASF0
+ 130 0030 03       		.uleb128 0x3
+ 131 0031 00000000 		.4byte	.LASF3
+ 132 0035 02       		.byte	0x2
+ 133 0036 1D       		.byte	0x1d
+ 134 0037 0000003B 		.4byte	0x3b
+ 135 003b 02       		.uleb128 0x2
+ 136 003c 01       		.byte	0x1
+ 137 003d 08       		.byte	0x8
+ 138 003e 00000000 		.4byte	.LASF1
+ 139 0042 02       		.uleb128 0x2
+ 140 0043 02       		.byte	0x2
+ 141 0044 05       		.byte	0x5
+ 142 0045 00000000 		.4byte	.LASF2
+ 143 0049 03       		.uleb128 0x3
+ 144 004a 00000000 		.4byte	.LASF4
+ 145 004e 02       		.byte	0x2
+ 146 004f 2B       		.byte	0x2b
+ 147 0050 00000054 		.4byte	0x54
+ 148 0054 02       		.uleb128 0x2
+ 149 0055 02       		.byte	0x2
+ 150 0056 07       		.byte	0x7
+ 151 0057 00000000 		.4byte	.LASF5
+ 152 005b 02       		.uleb128 0x2
+ 153 005c 04       		.byte	0x4
+ 154 005d 05       		.byte	0x5
+ 155 005e 00000000 		.4byte	.LASF6
+ 156 0062 03       		.uleb128 0x3
+ 157 0063 00000000 		.4byte	.LASF7
+ 158 0067 02       		.byte	0x2
+ 159 0068 41       		.byte	0x41
+ 160 0069 0000006D 		.4byte	0x6d
+ 161 006d 02       		.uleb128 0x2
+ 162 006e 04       		.byte	0x4
+ 163 006f 07       		.byte	0x7
+ 164 0070 00000000 		.4byte	.LASF8
+ 165 0074 02       		.uleb128 0x2
+ 166 0075 08       		.byte	0x8
+ 167 0076 05       		.byte	0x5
+ 168 0077 00000000 		.4byte	.LASF9
+ 169 007b 02       		.uleb128 0x2
+ 170 007c 08       		.byte	0x8
+ 171 007d 07       		.byte	0x7
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 4
+
+
+ 172 007e 00000000 		.4byte	.LASF10
+ 173 0082 04       		.uleb128 0x4
+ 174 0083 04       		.byte	0x4
+ 175 0084 05       		.byte	0x5
+ 176 0085 696E7400 		.string	"int"
+ 177 0089 02       		.uleb128 0x2
+ 178 008a 04       		.byte	0x4
+ 179 008b 07       		.byte	0x7
+ 180 008c 00000000 		.4byte	.LASF11
+ 181 0090 03       		.uleb128 0x3
+ 182 0091 00000000 		.4byte	.LASF12
+ 183 0095 03       		.byte	0x3
+ 184 0096 15       		.byte	0x15
+ 185 0097 00000030 		.4byte	0x30
+ 186 009b 03       		.uleb128 0x3
+ 187 009c 00000000 		.4byte	.LASF13
+ 188 00a0 03       		.byte	0x3
+ 189 00a1 21       		.byte	0x21
+ 190 00a2 00000049 		.4byte	0x49
+ 191 00a6 03       		.uleb128 0x3
+ 192 00a7 00000000 		.4byte	.LASF14
+ 193 00ab 03       		.byte	0x3
+ 194 00ac 2D       		.byte	0x2d
+ 195 00ad 00000062 		.4byte	0x62
+ 196 00b1 03       		.uleb128 0x3
+ 197 00b2 00000000 		.4byte	.LASF15
+ 198 00b6 04       		.byte	0x4
+ 199 00b7 1C       		.byte	0x1c
+ 200 00b8 000000BC 		.4byte	0xbc
+ 201 00bc 05       		.uleb128 0x5
+ 202 00bd 00000090 		.4byte	0x90
+ 203 00c1 03       		.uleb128 0x3
+ 204 00c2 00000000 		.4byte	.LASF16
+ 205 00c6 04       		.byte	0x4
+ 206 00c7 20       		.byte	0x20
+ 207 00c8 000000CC 		.4byte	0xcc
+ 208 00cc 05       		.uleb128 0x5
+ 209 00cd 000000A6 		.4byte	0xa6
+ 210 00d1 06       		.uleb128 0x6
+ 211 00d2 000000B1 		.4byte	0xb1
+ 212 00d6 000000E1 		.4byte	0xe1
+ 213 00da 07       		.uleb128 0x7
+ 214 00db 000000E1 		.4byte	0xe1
+ 215 00df 07       		.byte	0x7
+ 216 00e0 00       		.byte	0
+ 217 00e1 02       		.uleb128 0x2
+ 218 00e2 04       		.byte	0x4
+ 219 00e3 07       		.byte	0x7
+ 220 00e4 00000000 		.4byte	.LASF17
+ 221 00e8 08       		.uleb128 0x8
+ 222 00e9 04       		.byte	0x4
+ 223 00ea 05       		.byte	0x5
+ 224 00eb 3640     		.2byte	0x3640
+ 225 00ed 0000013A 		.4byte	0x13a
+ 226 00f1 09       		.uleb128 0x9
+ 227 00f2 00000000 		.4byte	.LASF18
+ 228 00f6 05       		.byte	0x5
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 5
+
+
+ 229 00f7 3641     		.2byte	0x3641
+ 230 00f9 000000C1 		.4byte	0xc1
+ 231 00fd 04       		.byte	0x4
+ 232 00fe 1D       		.byte	0x1d
+ 233 00ff 00       		.byte	0
+ 234 0100 02       		.byte	0x2
+ 235 0101 23       		.byte	0x23
+ 236 0102 00       		.uleb128 0
+ 237 0103 09       		.uleb128 0x9
+ 238 0104 00000000 		.4byte	.LASF19
+ 239 0108 05       		.byte	0x5
+ 240 0109 3642     		.2byte	0x3642
+ 241 010b 000000C1 		.4byte	0xc1
+ 242 010f 04       		.byte	0x4
+ 243 0110 01       		.byte	0x1
+ 244 0111 1D       		.byte	0x1d
+ 245 0112 02       		.byte	0x2
+ 246 0113 23       		.byte	0x23
+ 247 0114 00       		.uleb128 0
+ 248 0115 09       		.uleb128 0x9
+ 249 0116 00000000 		.4byte	.LASF20
+ 250 011a 05       		.byte	0x5
+ 251 011b 3643     		.2byte	0x3643
+ 252 011d 000000C1 		.4byte	0xc1
+ 253 0121 04       		.byte	0x4
+ 254 0122 01       		.byte	0x1
+ 255 0123 1E       		.byte	0x1e
+ 256 0124 02       		.byte	0x2
+ 257 0125 23       		.byte	0x23
+ 258 0126 00       		.uleb128 0
+ 259 0127 0A       		.uleb128 0xa
+ 260 0128 46525A00 		.string	"FRZ"
+ 261 012c 05       		.byte	0x5
+ 262 012d 3644     		.2byte	0x3644
+ 263 012f 000000C1 		.4byte	0xc1
+ 264 0133 04       		.byte	0x4
+ 265 0134 01       		.byte	0x1
+ 266 0135 1F       		.byte	0x1f
+ 267 0136 02       		.byte	0x2
+ 268 0137 23       		.byte	0x23
+ 269 0138 00       		.uleb128 0
+ 270 0139 00       		.byte	0
+ 271 013a 0B       		.uleb128 0xb
+ 272 013b 04       		.byte	0x4
+ 273 013c 05       		.byte	0x5
+ 274 013d 363E     		.2byte	0x363e
+ 275 013f 00000158 		.4byte	0x158
+ 276 0143 0C       		.uleb128 0xc
+ 277 0144 5200     		.string	"R"
+ 278 0146 05       		.byte	0x5
+ 279 0147 363F     		.2byte	0x363f
+ 280 0149 000000C1 		.4byte	0xc1
+ 281 014d 0C       		.uleb128 0xc
+ 282 014e 4200     		.string	"B"
+ 283 0150 05       		.byte	0x5
+ 284 0151 3645     		.2byte	0x3645
+ 285 0153 000000E8 		.4byte	0xe8
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 6
+
+
+ 286 0157 00       		.byte	0
+ 287 0158 08       		.uleb128 0x8
+ 288 0159 04       		.byte	0x4
+ 289 015a 05       		.byte	0x5
+ 290 015b 364C     		.2byte	0x364c
+ 291 015d 00000174 		.4byte	0x174
+ 292 0161 0A       		.uleb128 0xa
+ 293 0162 4C544800 		.string	"LTH"
+ 294 0166 05       		.byte	0x5
+ 295 0167 364D     		.2byte	0x364d
+ 296 0169 000000C1 		.4byte	0xc1
+ 297 016d 04       		.byte	0x4
+ 298 016e 20       		.byte	0x20
+ 299 016f 00       		.byte	0
+ 300 0170 02       		.byte	0x2
+ 301 0171 23       		.byte	0x23
+ 302 0172 00       		.uleb128 0
+ 303 0173 00       		.byte	0
+ 304 0174 0B       		.uleb128 0xb
+ 305 0175 04       		.byte	0x4
+ 306 0176 05       		.byte	0x5
+ 307 0177 364A     		.2byte	0x364a
+ 308 0179 00000192 		.4byte	0x192
+ 309 017d 0C       		.uleb128 0xc
+ 310 017e 5200     		.string	"R"
+ 311 0180 05       		.byte	0x5
+ 312 0181 364B     		.2byte	0x364b
+ 313 0183 000000C1 		.4byte	0xc1
+ 314 0187 0C       		.uleb128 0xc
+ 315 0188 4200     		.string	"B"
+ 316 018a 05       		.byte	0x5
+ 317 018b 364E     		.2byte	0x364e
+ 318 018d 00000158 		.4byte	0x158
+ 319 0191 00       		.byte	0
+ 320 0192 08       		.uleb128 0x8
+ 321 0193 04       		.byte	0x4
+ 322 0194 05       		.byte	0x5
+ 323 0195 3653     		.2byte	0x3653
+ 324 0197 000001AE 		.4byte	0x1ae
+ 325 019b 0A       		.uleb128 0xa
+ 326 019c 4C544C00 		.string	"LTL"
+ 327 01a0 05       		.byte	0x5
+ 328 01a1 3654     		.2byte	0x3654
+ 329 01a3 000000C1 		.4byte	0xc1
+ 330 01a7 04       		.byte	0x4
+ 331 01a8 20       		.byte	0x20
+ 332 01a9 00       		.byte	0
+ 333 01aa 02       		.byte	0x2
+ 334 01ab 23       		.byte	0x23
+ 335 01ac 00       		.uleb128 0
+ 336 01ad 00       		.byte	0
+ 337 01ae 0B       		.uleb128 0xb
+ 338 01af 04       		.byte	0x4
+ 339 01b0 05       		.byte	0x5
+ 340 01b1 3651     		.2byte	0x3651
+ 341 01b3 000001CC 		.4byte	0x1cc
+ 342 01b7 0C       		.uleb128 0xc
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 7
+
+
+ 343 01b8 5200     		.string	"R"
+ 344 01ba 05       		.byte	0x5
+ 345 01bb 3652     		.2byte	0x3652
+ 346 01bd 000000C1 		.4byte	0xc1
+ 347 01c1 0C       		.uleb128 0xc
+ 348 01c2 4200     		.string	"B"
+ 349 01c4 05       		.byte	0x5
+ 350 01c5 3655     		.2byte	0x3655
+ 351 01c7 00000192 		.4byte	0x192
+ 352 01cb 00       		.byte	0
+ 353 01cc 08       		.uleb128 0x8
+ 354 01cd 04       		.byte	0x4
+ 355 01ce 05       		.byte	0x5
+ 356 01cf 365C     		.2byte	0x365c
+ 357 01d1 000001E8 		.4byte	0x1e8
+ 358 01d5 0A       		.uleb128 0xa
+ 359 01d6 54535600 		.string	"TSV"
+ 360 01da 05       		.byte	0x5
+ 361 01db 365D     		.2byte	0x365d
+ 362 01dd 000000C1 		.4byte	0xc1
+ 363 01e1 04       		.byte	0x4
+ 364 01e2 20       		.byte	0x20
+ 365 01e3 00       		.byte	0
+ 366 01e4 02       		.byte	0x2
+ 367 01e5 23       		.byte	0x23
+ 368 01e6 00       		.uleb128 0
+ 369 01e7 00       		.byte	0
+ 370 01e8 0B       		.uleb128 0xb
+ 371 01e9 04       		.byte	0x4
+ 372 01ea 05       		.byte	0x5
+ 373 01eb 365A     		.2byte	0x365a
+ 374 01ed 00000206 		.4byte	0x206
+ 375 01f1 0C       		.uleb128 0xc
+ 376 01f2 5200     		.string	"R"
+ 377 01f4 05       		.byte	0x5
+ 378 01f5 365B     		.2byte	0x365b
+ 379 01f7 000000C1 		.4byte	0xc1
+ 380 01fb 0C       		.uleb128 0xc
+ 381 01fc 4200     		.string	"B"
+ 382 01fe 05       		.byte	0x5
+ 383 01ff 365E     		.2byte	0x365e
+ 384 0201 000001CC 		.4byte	0x1cc
+ 385 0205 00       		.byte	0
+ 386 0206 08       		.uleb128 0x8
+ 387 0207 04       		.byte	0x4
+ 388 0208 05       		.byte	0x5
+ 389 0209 3663     		.2byte	0x3663
+ 390 020b 00000222 		.4byte	0x222
+ 391 020f 0A       		.uleb128 0xa
+ 392 0210 54564C00 		.string	"TVL"
+ 393 0214 05       		.byte	0x5
+ 394 0215 3664     		.2byte	0x3664
+ 395 0217 000000C1 		.4byte	0xc1
+ 396 021b 04       		.byte	0x4
+ 397 021c 20       		.byte	0x20
+ 398 021d 00       		.byte	0
+ 399 021e 02       		.byte	0x2
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 8
+
+
+ 400 021f 23       		.byte	0x23
+ 401 0220 00       		.uleb128 0
+ 402 0221 00       		.byte	0
+ 403 0222 0B       		.uleb128 0xb
+ 404 0223 04       		.byte	0x4
+ 405 0224 05       		.byte	0x5
+ 406 0225 3661     		.2byte	0x3661
+ 407 0227 00000240 		.4byte	0x240
+ 408 022b 0C       		.uleb128 0xc
+ 409 022c 5200     		.string	"R"
+ 410 022e 05       		.byte	0x5
+ 411 022f 3662     		.2byte	0x3662
+ 412 0231 000000C1 		.4byte	0xc1
+ 413 0235 0C       		.uleb128 0xc
+ 414 0236 4200     		.string	"B"
+ 415 0238 05       		.byte	0x5
+ 416 0239 3665     		.2byte	0x3665
+ 417 023b 00000206 		.4byte	0x206
+ 418 023f 00       		.byte	0
+ 419 0240 08       		.uleb128 0x8
+ 420 0241 04       		.byte	0x4
+ 421 0242 05       		.byte	0x5
+ 422 0243 366A     		.2byte	0x366a
+ 423 0245 00000292 		.4byte	0x292
+ 424 0249 09       		.uleb128 0x9
+ 425 024a 00000000 		.4byte	.LASF18
+ 426 024e 05       		.byte	0x5
+ 427 024f 366B     		.2byte	0x366b
+ 428 0251 000000C1 		.4byte	0xc1
+ 429 0255 04       		.byte	0x4
+ 430 0256 1D       		.byte	0x1d
+ 431 0257 00       		.byte	0
+ 432 0258 02       		.byte	0x2
+ 433 0259 23       		.byte	0x23
+ 434 025a 00       		.uleb128 0
+ 435 025b 0A       		.uleb128 0xa
+ 436 025c 43484E00 		.string	"CHN"
+ 437 0260 05       		.byte	0x5
+ 438 0261 366C     		.2byte	0x366c
+ 439 0263 000000C1 		.4byte	0xc1
+ 440 0267 04       		.byte	0x4
+ 441 0268 01       		.byte	0x1
+ 442 0269 1D       		.byte	0x1d
+ 443 026a 02       		.byte	0x2
+ 444 026b 23       		.byte	0x23
+ 445 026c 00       		.uleb128 0
+ 446 026d 0A       		.uleb128 0xa
+ 447 026e 54494500 		.string	"TIE"
+ 448 0272 05       		.byte	0x5
+ 449 0273 366D     		.2byte	0x366d
+ 450 0275 000000C1 		.4byte	0xc1
+ 451 0279 04       		.byte	0x4
+ 452 027a 01       		.byte	0x1
+ 453 027b 1E       		.byte	0x1e
+ 454 027c 02       		.byte	0x2
+ 455 027d 23       		.byte	0x23
+ 456 027e 00       		.uleb128 0
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 9
+
+
+ 457 027f 0A       		.uleb128 0xa
+ 458 0280 54454E00 		.string	"TEN"
+ 459 0284 05       		.byte	0x5
+ 460 0285 366E     		.2byte	0x366e
+ 461 0287 000000C1 		.4byte	0xc1
+ 462 028b 04       		.byte	0x4
+ 463 028c 01       		.byte	0x1
+ 464 028d 1F       		.byte	0x1f
+ 465 028e 02       		.byte	0x2
+ 466 028f 23       		.byte	0x23
+ 467 0290 00       		.uleb128 0
+ 468 0291 00       		.byte	0
+ 469 0292 0B       		.uleb128 0xb
+ 470 0293 04       		.byte	0x4
+ 471 0294 05       		.byte	0x5
+ 472 0295 3668     		.2byte	0x3668
+ 473 0297 000002B0 		.4byte	0x2b0
+ 474 029b 0C       		.uleb128 0xc
+ 475 029c 5200     		.string	"R"
+ 476 029e 05       		.byte	0x5
+ 477 029f 3669     		.2byte	0x3669
+ 478 02a1 000000C1 		.4byte	0xc1
+ 479 02a5 0C       		.uleb128 0xc
+ 480 02a6 4200     		.string	"B"
+ 481 02a8 05       		.byte	0x5
+ 482 02a9 366F     		.2byte	0x366f
+ 483 02ab 00000240 		.4byte	0x240
+ 484 02af 00       		.byte	0
+ 485 02b0 08       		.uleb128 0x8
+ 486 02b1 04       		.byte	0x4
+ 487 02b2 05       		.byte	0x5
+ 488 02b3 3674     		.2byte	0x3674
+ 489 02b5 000002DE 		.4byte	0x2de
+ 490 02b9 09       		.uleb128 0x9
+ 491 02ba 00000000 		.4byte	.LASF18
+ 492 02be 05       		.byte	0x5
+ 493 02bf 3675     		.2byte	0x3675
+ 494 02c1 000000C1 		.4byte	0xc1
+ 495 02c5 04       		.byte	0x4
+ 496 02c6 1F       		.byte	0x1f
+ 497 02c7 00       		.byte	0
+ 498 02c8 02       		.byte	0x2
+ 499 02c9 23       		.byte	0x23
+ 500 02ca 00       		.uleb128 0
+ 501 02cb 0A       		.uleb128 0xa
+ 502 02cc 54494600 		.string	"TIF"
+ 503 02d0 05       		.byte	0x5
+ 504 02d1 3676     		.2byte	0x3676
+ 505 02d3 000000C1 		.4byte	0xc1
+ 506 02d7 04       		.byte	0x4
+ 507 02d8 01       		.byte	0x1
+ 508 02d9 1F       		.byte	0x1f
+ 509 02da 02       		.byte	0x2
+ 510 02db 23       		.byte	0x23
+ 511 02dc 00       		.uleb128 0
+ 512 02dd 00       		.byte	0
+ 513 02de 0B       		.uleb128 0xb
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 10
+
+
+ 514 02df 04       		.byte	0x4
+ 515 02e0 05       		.byte	0x5
+ 516 02e1 3672     		.2byte	0x3672
+ 517 02e3 000002FC 		.4byte	0x2fc
+ 518 02e7 0C       		.uleb128 0xc
+ 519 02e8 5200     		.string	"R"
+ 520 02ea 05       		.byte	0x5
+ 521 02eb 3673     		.2byte	0x3673
+ 522 02ed 000000C1 		.4byte	0xc1
+ 523 02f1 0C       		.uleb128 0xc
+ 524 02f2 4200     		.string	"B"
+ 525 02f4 05       		.byte	0x5
+ 526 02f5 3677     		.2byte	0x3677
+ 527 02f7 000002B0 		.4byte	0x2b0
+ 528 02fb 00       		.byte	0
+ 529 02fc 08       		.uleb128 0x8
+ 530 02fd 04       		.byte	0x4
+ 531 02fe 05       		.byte	0x5
+ 532 02ff 367D     		.2byte	0x367d
+ 533 0301 00000318 		.4byte	0x318
+ 534 0305 0A       		.uleb128 0xa
+ 535 0306 54535600 		.string	"TSV"
+ 536 030a 05       		.byte	0x5
+ 537 030b 367E     		.2byte	0x367e
+ 538 030d 000000C1 		.4byte	0xc1
+ 539 0311 04       		.byte	0x4
+ 540 0312 20       		.byte	0x20
+ 541 0313 00       		.byte	0
+ 542 0314 02       		.byte	0x2
+ 543 0315 23       		.byte	0x23
+ 544 0316 00       		.uleb128 0
+ 545 0317 00       		.byte	0
+ 546 0318 0B       		.uleb128 0xb
+ 547 0319 04       		.byte	0x4
+ 548 031a 05       		.byte	0x5
+ 549 031b 367B     		.2byte	0x367b
+ 550 031d 00000336 		.4byte	0x336
+ 551 0321 0C       		.uleb128 0xc
+ 552 0322 5200     		.string	"R"
+ 553 0324 05       		.byte	0x5
+ 554 0325 367C     		.2byte	0x367c
+ 555 0327 000000C1 		.4byte	0xc1
+ 556 032b 0C       		.uleb128 0xc
+ 557 032c 4200     		.string	"B"
+ 558 032e 05       		.byte	0x5
+ 559 032f 367F     		.2byte	0x367f
+ 560 0331 000002FC 		.4byte	0x2fc
+ 561 0335 00       		.byte	0
+ 562 0336 08       		.uleb128 0x8
+ 563 0337 04       		.byte	0x4
+ 564 0338 05       		.byte	0x5
+ 565 0339 3684     		.2byte	0x3684
+ 566 033b 00000352 		.4byte	0x352
+ 567 033f 0A       		.uleb128 0xa
+ 568 0340 54564C00 		.string	"TVL"
+ 569 0344 05       		.byte	0x5
+ 570 0345 3685     		.2byte	0x3685
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 11
+
+
+ 571 0347 000000C1 		.4byte	0xc1
+ 572 034b 04       		.byte	0x4
+ 573 034c 20       		.byte	0x20
+ 574 034d 00       		.byte	0
+ 575 034e 02       		.byte	0x2
+ 576 034f 23       		.byte	0x23
+ 577 0350 00       		.uleb128 0
+ 578 0351 00       		.byte	0
+ 579 0352 0B       		.uleb128 0xb
+ 580 0353 04       		.byte	0x4
+ 581 0354 05       		.byte	0x5
+ 582 0355 3682     		.2byte	0x3682
+ 583 0357 00000370 		.4byte	0x370
+ 584 035b 0C       		.uleb128 0xc
+ 585 035c 5200     		.string	"R"
+ 586 035e 05       		.byte	0x5
+ 587 035f 3683     		.2byte	0x3683
+ 588 0361 000000C1 		.4byte	0xc1
+ 589 0365 0C       		.uleb128 0xc
+ 590 0366 4200     		.string	"B"
+ 591 0368 05       		.byte	0x5
+ 592 0369 3686     		.2byte	0x3686
+ 593 036b 00000336 		.4byte	0x336
+ 594 036f 00       		.byte	0
+ 595 0370 08       		.uleb128 0x8
+ 596 0371 04       		.byte	0x4
+ 597 0372 05       		.byte	0x5
+ 598 0373 368B     		.2byte	0x368b
+ 599 0375 000003C2 		.4byte	0x3c2
+ 600 0379 09       		.uleb128 0x9
+ 601 037a 00000000 		.4byte	.LASF18
+ 602 037e 05       		.byte	0x5
+ 603 037f 368C     		.2byte	0x368c
+ 604 0381 000000C1 		.4byte	0xc1
+ 605 0385 04       		.byte	0x4
+ 606 0386 1D       		.byte	0x1d
+ 607 0387 00       		.byte	0
+ 608 0388 02       		.byte	0x2
+ 609 0389 23       		.byte	0x23
+ 610 038a 00       		.uleb128 0
+ 611 038b 0A       		.uleb128 0xa
+ 612 038c 43484E00 		.string	"CHN"
+ 613 0390 05       		.byte	0x5
+ 614 0391 368D     		.2byte	0x368d
+ 615 0393 000000C1 		.4byte	0xc1
+ 616 0397 04       		.byte	0x4
+ 617 0398 01       		.byte	0x1
+ 618 0399 1D       		.byte	0x1d
+ 619 039a 02       		.byte	0x2
+ 620 039b 23       		.byte	0x23
+ 621 039c 00       		.uleb128 0
+ 622 039d 0A       		.uleb128 0xa
+ 623 039e 54494500 		.string	"TIE"
+ 624 03a2 05       		.byte	0x5
+ 625 03a3 368E     		.2byte	0x368e
+ 626 03a5 000000C1 		.4byte	0xc1
+ 627 03a9 04       		.byte	0x4
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 12
+
+
+ 628 03aa 01       		.byte	0x1
+ 629 03ab 1E       		.byte	0x1e
+ 630 03ac 02       		.byte	0x2
+ 631 03ad 23       		.byte	0x23
+ 632 03ae 00       		.uleb128 0
+ 633 03af 0A       		.uleb128 0xa
+ 634 03b0 54454E00 		.string	"TEN"
+ 635 03b4 05       		.byte	0x5
+ 636 03b5 368F     		.2byte	0x368f
+ 637 03b7 000000C1 		.4byte	0xc1
+ 638 03bb 04       		.byte	0x4
+ 639 03bc 01       		.byte	0x1
+ 640 03bd 1F       		.byte	0x1f
+ 641 03be 02       		.byte	0x2
+ 642 03bf 23       		.byte	0x23
+ 643 03c0 00       		.uleb128 0
+ 644 03c1 00       		.byte	0
+ 645 03c2 0B       		.uleb128 0xb
+ 646 03c3 04       		.byte	0x4
+ 647 03c4 05       		.byte	0x5
+ 648 03c5 3689     		.2byte	0x3689
+ 649 03c7 000003E0 		.4byte	0x3e0
+ 650 03cb 0C       		.uleb128 0xc
+ 651 03cc 5200     		.string	"R"
+ 652 03ce 05       		.byte	0x5
+ 653 03cf 368A     		.2byte	0x368a
+ 654 03d1 000000C1 		.4byte	0xc1
+ 655 03d5 0C       		.uleb128 0xc
+ 656 03d6 4200     		.string	"B"
+ 657 03d8 05       		.byte	0x5
+ 658 03d9 3690     		.2byte	0x3690
+ 659 03db 00000370 		.4byte	0x370
+ 660 03df 00       		.byte	0
+ 661 03e0 08       		.uleb128 0x8
+ 662 03e1 04       		.byte	0x4
+ 663 03e2 05       		.byte	0x5
+ 664 03e3 3695     		.2byte	0x3695
+ 665 03e5 0000040E 		.4byte	0x40e
+ 666 03e9 09       		.uleb128 0x9
+ 667 03ea 00000000 		.4byte	.LASF18
+ 668 03ee 05       		.byte	0x5
+ 669 03ef 3696     		.2byte	0x3696
+ 670 03f1 000000C1 		.4byte	0xc1
+ 671 03f5 04       		.byte	0x4
+ 672 03f6 1F       		.byte	0x1f
+ 673 03f7 00       		.byte	0
+ 674 03f8 02       		.byte	0x2
+ 675 03f9 23       		.byte	0x23
+ 676 03fa 00       		.uleb128 0
+ 677 03fb 0A       		.uleb128 0xa
+ 678 03fc 54494600 		.string	"TIF"
+ 679 0400 05       		.byte	0x5
+ 680 0401 3697     		.2byte	0x3697
+ 681 0403 000000C1 		.4byte	0xc1
+ 682 0407 04       		.byte	0x4
+ 683 0408 01       		.byte	0x1
+ 684 0409 1F       		.byte	0x1f
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 13
+
+
+ 685 040a 02       		.byte	0x2
+ 686 040b 23       		.byte	0x23
+ 687 040c 00       		.uleb128 0
+ 688 040d 00       		.byte	0
+ 689 040e 0B       		.uleb128 0xb
+ 690 040f 04       		.byte	0x4
+ 691 0410 05       		.byte	0x5
+ 692 0411 3693     		.2byte	0x3693
+ 693 0413 0000042C 		.4byte	0x42c
+ 694 0417 0C       		.uleb128 0xc
+ 695 0418 5200     		.string	"R"
+ 696 041a 05       		.byte	0x5
+ 697 041b 3694     		.2byte	0x3694
+ 698 041d 000000C1 		.4byte	0xc1
+ 699 0421 0C       		.uleb128 0xc
+ 700 0422 4200     		.string	"B"
+ 701 0424 05       		.byte	0x5
+ 702 0425 3698     		.2byte	0x3698
+ 703 0427 000003E0 		.4byte	0x3e0
+ 704 042b 00       		.byte	0
+ 705 042c 08       		.uleb128 0x8
+ 706 042d 10       		.byte	0x10
+ 707 042e 05       		.byte	0x5
+ 708 042f 367A     		.2byte	0x367a
+ 709 0431 00000472 		.4byte	0x472
+ 710 0435 0D       		.uleb128 0xd
+ 711 0436 00000000 		.4byte	.LASF21
+ 712 043a 05       		.byte	0x5
+ 713 043b 3680     		.2byte	0x3680
+ 714 043d 00000318 		.4byte	0x318
+ 715 0441 02       		.byte	0x2
+ 716 0442 23       		.byte	0x23
+ 717 0443 00       		.uleb128 0
+ 718 0444 0D       		.uleb128 0xd
+ 719 0445 00000000 		.4byte	.LASF22
+ 720 0449 05       		.byte	0x5
+ 721 044a 3687     		.2byte	0x3687
+ 722 044c 00000352 		.4byte	0x352
+ 723 0450 02       		.byte	0x2
+ 724 0451 23       		.byte	0x23
+ 725 0452 04       		.uleb128 0x4
+ 726 0453 0D       		.uleb128 0xd
+ 727 0454 00000000 		.4byte	.LASF23
+ 728 0458 05       		.byte	0x5
+ 729 0459 3691     		.2byte	0x3691
+ 730 045b 000003C2 		.4byte	0x3c2
+ 731 045f 02       		.byte	0x2
+ 732 0460 23       		.byte	0x23
+ 733 0461 08       		.uleb128 0x8
+ 734 0462 0D       		.uleb128 0xd
+ 735 0463 00000000 		.4byte	.LASF24
+ 736 0467 05       		.byte	0x5
+ 737 0468 3699     		.2byte	0x3699
+ 738 046a 0000040E 		.4byte	0x40e
+ 739 046e 02       		.byte	0x2
+ 740 046f 23       		.byte	0x23
+ 741 0470 0C       		.uleb128 0xc
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 14
+
+
+ 742 0471 00       		.byte	0
+ 743 0472 0E       		.uleb128 0xe
+ 744 0473 00000000 		.4byte	.LASF36
+ 745 0477 0180     		.2byte	0x180
+ 746 0479 05       		.byte	0x5
+ 747 047a 363D     		.2byte	0x363d
+ 748 047c 0000051E 		.4byte	0x51e
+ 749 0480 0F       		.uleb128 0xf
+ 750 0481 4D435200 		.string	"MCR"
+ 751 0485 05       		.byte	0x5
+ 752 0486 3646     		.2byte	0x3646
+ 753 0488 0000013A 		.4byte	0x13a
+ 754 048c 02       		.byte	0x2
+ 755 048d 23       		.byte	0x23
+ 756 048e 00       		.uleb128 0
+ 757 048f 0D       		.uleb128 0xd
+ 758 0490 00000000 		.4byte	.LASF25
+ 759 0494 05       		.byte	0x5
+ 760 0495 3648     		.2byte	0x3648
+ 761 0497 0000052E 		.4byte	0x52e
+ 762 049b 02       		.byte	0x2
+ 763 049c 23       		.byte	0x23
+ 764 049d 04       		.uleb128 0x4
+ 765 049e 0D       		.uleb128 0xd
+ 766 049f 00000000 		.4byte	.LASF26
+ 767 04a3 05       		.byte	0x5
+ 768 04a4 364F     		.2byte	0x364f
+ 769 04a6 00000174 		.4byte	0x174
+ 770 04aa 03       		.byte	0x3
+ 771 04ab 23       		.byte	0x23
+ 772 04ac E001     		.uleb128 0xe0
+ 773 04ae 0D       		.uleb128 0xd
+ 774 04af 00000000 		.4byte	.LASF27
+ 775 04b3 05       		.byte	0x5
+ 776 04b4 3656     		.2byte	0x3656
+ 777 04b6 000001AE 		.4byte	0x1ae
+ 778 04ba 03       		.byte	0x3
+ 779 04bb 23       		.byte	0x23
+ 780 04bc E401     		.uleb128 0xe4
+ 781 04be 0D       		.uleb128 0xd
+ 782 04bf 00000000 		.4byte	.LASF28
+ 783 04c3 05       		.byte	0x5
+ 784 04c4 3658     		.2byte	0x3658
+ 785 04c6 00000533 		.4byte	0x533
+ 786 04ca 03       		.byte	0x3
+ 787 04cb 23       		.byte	0x23
+ 788 04cc E801     		.uleb128 0xe8
+ 789 04ce 0D       		.uleb128 0xd
+ 790 04cf 00000000 		.4byte	.LASF29
+ 791 04d3 05       		.byte	0x5
+ 792 04d4 365F     		.2byte	0x365f
+ 793 04d6 000001E8 		.4byte	0x1e8
+ 794 04da 03       		.byte	0x3
+ 795 04db 23       		.byte	0x23
+ 796 04dc F001     		.uleb128 0xf0
+ 797 04de 0D       		.uleb128 0xd
+ 798 04df 00000000 		.4byte	.LASF30
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 15
+
+
+ 799 04e3 05       		.byte	0x5
+ 800 04e4 3666     		.2byte	0x3666
+ 801 04e6 00000222 		.4byte	0x222
+ 802 04ea 03       		.byte	0x3
+ 803 04eb 23       		.byte	0x23
+ 804 04ec F401     		.uleb128 0xf4
+ 805 04ee 0D       		.uleb128 0xd
+ 806 04ef 00000000 		.4byte	.LASF31
+ 807 04f3 05       		.byte	0x5
+ 808 04f4 3670     		.2byte	0x3670
+ 809 04f6 00000292 		.4byte	0x292
+ 810 04fa 03       		.byte	0x3
+ 811 04fb 23       		.byte	0x23
+ 812 04fc F801     		.uleb128 0xf8
+ 813 04fe 0D       		.uleb128 0xd
+ 814 04ff 00000000 		.4byte	.LASF32
+ 815 0503 05       		.byte	0x5
+ 816 0504 3678     		.2byte	0x3678
+ 817 0506 000002DE 		.4byte	0x2de
+ 818 050a 03       		.byte	0x3
+ 819 050b 23       		.byte	0x23
+ 820 050c FC01     		.uleb128 0xfc
+ 821 050e 0F       		.uleb128 0xf
+ 822 050f 434800   		.string	"CH"
+ 823 0512 05       		.byte	0x5
+ 824 0513 369B     		.2byte	0x369b
+ 825 0515 00000538 		.4byte	0x538
+ 826 0519 03       		.byte	0x3
+ 827 051a 23       		.byte	0x23
+ 828 051b 8002     		.uleb128 0x100
+ 829 051d 00       		.byte	0
+ 830 051e 06       		.uleb128 0x6
+ 831 051f 000000B1 		.4byte	0xb1
+ 832 0523 0000052E 		.4byte	0x52e
+ 833 0527 07       		.uleb128 0x7
+ 834 0528 000000E1 		.4byte	0xe1
+ 835 052c DB       		.byte	0xdb
+ 836 052d 00       		.byte	0
+ 837 052e 05       		.uleb128 0x5
+ 838 052f 0000051E 		.4byte	0x51e
+ 839 0533 05       		.uleb128 0x5
+ 840 0534 000000D1 		.4byte	0xd1
+ 841 0538 06       		.uleb128 0x6
+ 842 0539 0000042C 		.4byte	0x42c
+ 843 053d 00000548 		.4byte	0x548
+ 844 0541 07       		.uleb128 0x7
+ 845 0542 000000E1 		.4byte	0xe1
+ 846 0546 07       		.byte	0x7
+ 847 0547 00       		.byte	0
+ 848 0548 10       		.uleb128 0x10
+ 849 0549 01       		.byte	0x1
+ 850 054a 00000000 		.4byte	.LASF37
+ 851 054e 01       		.byte	0x1
+ 852 054f 33       		.byte	0x33
+ 853 0550 01       		.byte	0x1
+ 854 0551 00000000 		.4byte	.LFB2
+ 855 0555 00000000 		.4byte	.LFE2
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 16
+
+
+ 856 0559 00000000 		.4byte	.LLST0
+ 857 055d 01       		.byte	0x1
+ 858 055e 00000593 		.4byte	0x593
+ 859 0562 11       		.uleb128 0x11
+ 860 0563 00000000 		.4byte	.LASF38
+ 861 0567 01       		.byte	0x1
+ 862 0568 33       		.byte	0x33
+ 863 0569 000000A6 		.4byte	0xa6
+ 864 056d 00000000 		.4byte	.LLST1
+ 865 0571 12       		.uleb128 0x12
+ 866 0572 72656700 		.string	"reg"
+ 867 0576 01       		.byte	0x1
+ 868 0577 35       		.byte	0x35
+ 869 0578 000000A6 		.4byte	0xa6
+ 870 057c 01       		.byte	0x1
+ 871 057d 53       		.byte	0x53
+ 872 057e 13       		.uleb128 0x13
+ 873 057f 00000000 		.4byte	.LVL2
+ 874 0583 000005A8 		.4byte	0x5a8
+ 875 0587 14       		.uleb128 0x14
+ 876 0588 01       		.byte	0x1
+ 877 0589 54       		.byte	0x54
+ 878 058a 01       		.byte	0x1
+ 879 058b 42       		.byte	0x42
+ 880 058c 14       		.uleb128 0x14
+ 881 058d 01       		.byte	0x1
+ 882 058e 53       		.byte	0x53
+ 883 058f 01       		.byte	0x1
+ 884 0590 4E       		.byte	0x4e
+ 885 0591 00       		.byte	0
+ 886 0592 00       		.byte	0
+ 887 0593 15       		.uleb128 0x15
+ 888 0594 01       		.byte	0x1
+ 889 0595 00000000 		.4byte	.LASF39
+ 890 0599 01       		.byte	0x1
+ 891 059a 49       		.byte	0x49
+ 892 059b 01       		.byte	0x1
+ 893 059c 00000000 		.4byte	.LFB3
+ 894 05a0 00000000 		.4byte	.LFE3
+ 895 05a4 02       		.byte	0x2
+ 896 05a5 71       		.byte	0x71
+ 897 05a6 00       		.sleb128 0
+ 898 05a7 01       		.byte	0x1
+ 899 05a8 16       		.uleb128 0x16
+ 900 05a9 01       		.byte	0x1
+ 901 05aa 00000000 		.4byte	.LASF40
+ 902 05ae 06       		.byte	0x6
+ 903 05af 0737     		.2byte	0x737
+ 904 05b1 01       		.byte	0x1
+ 905 05b2 01       		.byte	0x1
+ 906 05b3 17       		.uleb128 0x17
+ 907 05b4 000000A6 		.4byte	0xa6
+ 908 05b8 17       		.uleb128 0x17
+ 909 05b9 000000A6 		.4byte	0xa6
+ 910 05bd 00       		.byte	0
+ 911 05be 00       		.byte	0
+ 912              		.section	.debug_abbrev,"",@progbits
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 17
+
+
+ 913              	.Ldebug_abbrev0:
+ 914 0000 01       		.uleb128 0x1
+ 915 0001 11       		.uleb128 0x11
+ 916 0002 01       		.byte	0x1
+ 917 0003 25       		.uleb128 0x25
+ 918 0004 0E       		.uleb128 0xe
+ 919 0005 13       		.uleb128 0x13
+ 920 0006 0B       		.uleb128 0xb
+ 921 0007 03       		.uleb128 0x3
+ 922 0008 0E       		.uleb128 0xe
+ 923 0009 1B       		.uleb128 0x1b
+ 924 000a 0E       		.uleb128 0xe
+ 925 000b 55       		.uleb128 0x55
+ 926 000c 06       		.uleb128 0x6
+ 927 000d 11       		.uleb128 0x11
+ 928 000e 01       		.uleb128 0x1
+ 929 000f 52       		.uleb128 0x52
+ 930 0010 01       		.uleb128 0x1
+ 931 0011 10       		.uleb128 0x10
+ 932 0012 06       		.uleb128 0x6
+ 933 0013 00       		.byte	0
+ 934 0014 00       		.byte	0
+ 935 0015 02       		.uleb128 0x2
+ 936 0016 24       		.uleb128 0x24
+ 937 0017 00       		.byte	0
+ 938 0018 0B       		.uleb128 0xb
+ 939 0019 0B       		.uleb128 0xb
+ 940 001a 3E       		.uleb128 0x3e
+ 941 001b 0B       		.uleb128 0xb
+ 942 001c 03       		.uleb128 0x3
+ 943 001d 0E       		.uleb128 0xe
+ 944 001e 00       		.byte	0
+ 945 001f 00       		.byte	0
+ 946 0020 03       		.uleb128 0x3
+ 947 0021 16       		.uleb128 0x16
+ 948 0022 00       		.byte	0
+ 949 0023 03       		.uleb128 0x3
+ 950 0024 0E       		.uleb128 0xe
+ 951 0025 3A       		.uleb128 0x3a
+ 952 0026 0B       		.uleb128 0xb
+ 953 0027 3B       		.uleb128 0x3b
+ 954 0028 0B       		.uleb128 0xb
+ 955 0029 49       		.uleb128 0x49
+ 956 002a 13       		.uleb128 0x13
+ 957 002b 00       		.byte	0
+ 958 002c 00       		.byte	0
+ 959 002d 04       		.uleb128 0x4
+ 960 002e 24       		.uleb128 0x24
+ 961 002f 00       		.byte	0
+ 962 0030 0B       		.uleb128 0xb
+ 963 0031 0B       		.uleb128 0xb
+ 964 0032 3E       		.uleb128 0x3e
+ 965 0033 0B       		.uleb128 0xb
+ 966 0034 03       		.uleb128 0x3
+ 967 0035 08       		.uleb128 0x8
+ 968 0036 00       		.byte	0
+ 969 0037 00       		.byte	0
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 18
+
+
+ 970 0038 05       		.uleb128 0x5
+ 971 0039 35       		.uleb128 0x35
+ 972 003a 00       		.byte	0
+ 973 003b 49       		.uleb128 0x49
+ 974 003c 13       		.uleb128 0x13
+ 975 003d 00       		.byte	0
+ 976 003e 00       		.byte	0
+ 977 003f 06       		.uleb128 0x6
+ 978 0040 01       		.uleb128 0x1
+ 979 0041 01       		.byte	0x1
+ 980 0042 49       		.uleb128 0x49
+ 981 0043 13       		.uleb128 0x13
+ 982 0044 01       		.uleb128 0x1
+ 983 0045 13       		.uleb128 0x13
+ 984 0046 00       		.byte	0
+ 985 0047 00       		.byte	0
+ 986 0048 07       		.uleb128 0x7
+ 987 0049 21       		.uleb128 0x21
+ 988 004a 00       		.byte	0
+ 989 004b 49       		.uleb128 0x49
+ 990 004c 13       		.uleb128 0x13
+ 991 004d 2F       		.uleb128 0x2f
+ 992 004e 0B       		.uleb128 0xb
+ 993 004f 00       		.byte	0
+ 994 0050 00       		.byte	0
+ 995 0051 08       		.uleb128 0x8
+ 996 0052 13       		.uleb128 0x13
+ 997 0053 01       		.byte	0x1
+ 998 0054 0B       		.uleb128 0xb
+ 999 0055 0B       		.uleb128 0xb
+ 1000 0056 3A       		.uleb128 0x3a
+ 1001 0057 0B       		.uleb128 0xb
+ 1002 0058 3B       		.uleb128 0x3b
+ 1003 0059 05       		.uleb128 0x5
+ 1004 005a 01       		.uleb128 0x1
+ 1005 005b 13       		.uleb128 0x13
+ 1006 005c 00       		.byte	0
+ 1007 005d 00       		.byte	0
+ 1008 005e 09       		.uleb128 0x9
+ 1009 005f 0D       		.uleb128 0xd
+ 1010 0060 00       		.byte	0
+ 1011 0061 03       		.uleb128 0x3
+ 1012 0062 0E       		.uleb128 0xe
+ 1013 0063 3A       		.uleb128 0x3a
+ 1014 0064 0B       		.uleb128 0xb
+ 1015 0065 3B       		.uleb128 0x3b
+ 1016 0066 05       		.uleb128 0x5
+ 1017 0067 49       		.uleb128 0x49
+ 1018 0068 13       		.uleb128 0x13
+ 1019 0069 0B       		.uleb128 0xb
+ 1020 006a 0B       		.uleb128 0xb
+ 1021 006b 0D       		.uleb128 0xd
+ 1022 006c 0B       		.uleb128 0xb
+ 1023 006d 0C       		.uleb128 0xc
+ 1024 006e 0B       		.uleb128 0xb
+ 1025 006f 38       		.uleb128 0x38
+ 1026 0070 0A       		.uleb128 0xa
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 19
+
+
+ 1027 0071 00       		.byte	0
+ 1028 0072 00       		.byte	0
+ 1029 0073 0A       		.uleb128 0xa
+ 1030 0074 0D       		.uleb128 0xd
+ 1031 0075 00       		.byte	0
+ 1032 0076 03       		.uleb128 0x3
+ 1033 0077 08       		.uleb128 0x8
+ 1034 0078 3A       		.uleb128 0x3a
+ 1035 0079 0B       		.uleb128 0xb
+ 1036 007a 3B       		.uleb128 0x3b
+ 1037 007b 05       		.uleb128 0x5
+ 1038 007c 49       		.uleb128 0x49
+ 1039 007d 13       		.uleb128 0x13
+ 1040 007e 0B       		.uleb128 0xb
+ 1041 007f 0B       		.uleb128 0xb
+ 1042 0080 0D       		.uleb128 0xd
+ 1043 0081 0B       		.uleb128 0xb
+ 1044 0082 0C       		.uleb128 0xc
+ 1045 0083 0B       		.uleb128 0xb
+ 1046 0084 38       		.uleb128 0x38
+ 1047 0085 0A       		.uleb128 0xa
+ 1048 0086 00       		.byte	0
+ 1049 0087 00       		.byte	0
+ 1050 0088 0B       		.uleb128 0xb
+ 1051 0089 17       		.uleb128 0x17
+ 1052 008a 01       		.byte	0x1
+ 1053 008b 0B       		.uleb128 0xb
+ 1054 008c 0B       		.uleb128 0xb
+ 1055 008d 3A       		.uleb128 0x3a
+ 1056 008e 0B       		.uleb128 0xb
+ 1057 008f 3B       		.uleb128 0x3b
+ 1058 0090 05       		.uleb128 0x5
+ 1059 0091 01       		.uleb128 0x1
+ 1060 0092 13       		.uleb128 0x13
+ 1061 0093 00       		.byte	0
+ 1062 0094 00       		.byte	0
+ 1063 0095 0C       		.uleb128 0xc
+ 1064 0096 0D       		.uleb128 0xd
+ 1065 0097 00       		.byte	0
+ 1066 0098 03       		.uleb128 0x3
+ 1067 0099 08       		.uleb128 0x8
+ 1068 009a 3A       		.uleb128 0x3a
+ 1069 009b 0B       		.uleb128 0xb
+ 1070 009c 3B       		.uleb128 0x3b
+ 1071 009d 05       		.uleb128 0x5
+ 1072 009e 49       		.uleb128 0x49
+ 1073 009f 13       		.uleb128 0x13
+ 1074 00a0 00       		.byte	0
+ 1075 00a1 00       		.byte	0
+ 1076 00a2 0D       		.uleb128 0xd
+ 1077 00a3 0D       		.uleb128 0xd
+ 1078 00a4 00       		.byte	0
+ 1079 00a5 03       		.uleb128 0x3
+ 1080 00a6 0E       		.uleb128 0xe
+ 1081 00a7 3A       		.uleb128 0x3a
+ 1082 00a8 0B       		.uleb128 0xb
+ 1083 00a9 3B       		.uleb128 0x3b
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 20
+
+
+ 1084 00aa 05       		.uleb128 0x5
+ 1085 00ab 49       		.uleb128 0x49
+ 1086 00ac 13       		.uleb128 0x13
+ 1087 00ad 38       		.uleb128 0x38
+ 1088 00ae 0A       		.uleb128 0xa
+ 1089 00af 00       		.byte	0
+ 1090 00b0 00       		.byte	0
+ 1091 00b1 0E       		.uleb128 0xe
+ 1092 00b2 13       		.uleb128 0x13
+ 1093 00b3 01       		.byte	0x1
+ 1094 00b4 03       		.uleb128 0x3
+ 1095 00b5 0E       		.uleb128 0xe
+ 1096 00b6 0B       		.uleb128 0xb
+ 1097 00b7 05       		.uleb128 0x5
+ 1098 00b8 3A       		.uleb128 0x3a
+ 1099 00b9 0B       		.uleb128 0xb
+ 1100 00ba 3B       		.uleb128 0x3b
+ 1101 00bb 05       		.uleb128 0x5
+ 1102 00bc 01       		.uleb128 0x1
+ 1103 00bd 13       		.uleb128 0x13
+ 1104 00be 00       		.byte	0
+ 1105 00bf 00       		.byte	0
+ 1106 00c0 0F       		.uleb128 0xf
+ 1107 00c1 0D       		.uleb128 0xd
+ 1108 00c2 00       		.byte	0
+ 1109 00c3 03       		.uleb128 0x3
+ 1110 00c4 08       		.uleb128 0x8
+ 1111 00c5 3A       		.uleb128 0x3a
+ 1112 00c6 0B       		.uleb128 0xb
+ 1113 00c7 3B       		.uleb128 0x3b
+ 1114 00c8 05       		.uleb128 0x5
+ 1115 00c9 49       		.uleb128 0x49
+ 1116 00ca 13       		.uleb128 0x13
+ 1117 00cb 38       		.uleb128 0x38
+ 1118 00cc 0A       		.uleb128 0xa
+ 1119 00cd 00       		.byte	0
+ 1120 00ce 00       		.byte	0
+ 1121 00cf 10       		.uleb128 0x10
+ 1122 00d0 2E       		.uleb128 0x2e
+ 1123 00d1 01       		.byte	0x1
+ 1124 00d2 3F       		.uleb128 0x3f
+ 1125 00d3 0C       		.uleb128 0xc
+ 1126 00d4 03       		.uleb128 0x3
+ 1127 00d5 0E       		.uleb128 0xe
+ 1128 00d6 3A       		.uleb128 0x3a
+ 1129 00d7 0B       		.uleb128 0xb
+ 1130 00d8 3B       		.uleb128 0x3b
+ 1131 00d9 0B       		.uleb128 0xb
+ 1132 00da 27       		.uleb128 0x27
+ 1133 00db 0C       		.uleb128 0xc
+ 1134 00dc 11       		.uleb128 0x11
+ 1135 00dd 01       		.uleb128 0x1
+ 1136 00de 12       		.uleb128 0x12
+ 1137 00df 01       		.uleb128 0x1
+ 1138 00e0 40       		.uleb128 0x40
+ 1139 00e1 06       		.uleb128 0x6
+ 1140 00e2 9742     		.uleb128 0x2117
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 21
+
+
+ 1141 00e4 0C       		.uleb128 0xc
+ 1142 00e5 01       		.uleb128 0x1
+ 1143 00e6 13       		.uleb128 0x13
+ 1144 00e7 00       		.byte	0
+ 1145 00e8 00       		.byte	0
+ 1146 00e9 11       		.uleb128 0x11
+ 1147 00ea 05       		.uleb128 0x5
+ 1148 00eb 00       		.byte	0
+ 1149 00ec 03       		.uleb128 0x3
+ 1150 00ed 0E       		.uleb128 0xe
+ 1151 00ee 3A       		.uleb128 0x3a
+ 1152 00ef 0B       		.uleb128 0xb
+ 1153 00f0 3B       		.uleb128 0x3b
+ 1154 00f1 0B       		.uleb128 0xb
+ 1155 00f2 49       		.uleb128 0x49
+ 1156 00f3 13       		.uleb128 0x13
+ 1157 00f4 02       		.uleb128 0x2
+ 1158 00f5 06       		.uleb128 0x6
+ 1159 00f6 00       		.byte	0
+ 1160 00f7 00       		.byte	0
+ 1161 00f8 12       		.uleb128 0x12
+ 1162 00f9 34       		.uleb128 0x34
+ 1163 00fa 00       		.byte	0
+ 1164 00fb 03       		.uleb128 0x3
+ 1165 00fc 08       		.uleb128 0x8
+ 1166 00fd 3A       		.uleb128 0x3a
+ 1167 00fe 0B       		.uleb128 0xb
+ 1168 00ff 3B       		.uleb128 0x3b
+ 1169 0100 0B       		.uleb128 0xb
+ 1170 0101 49       		.uleb128 0x49
+ 1171 0102 13       		.uleb128 0x13
+ 1172 0103 02       		.uleb128 0x2
+ 1173 0104 0A       		.uleb128 0xa
+ 1174 0105 00       		.byte	0
+ 1175 0106 00       		.byte	0
+ 1176 0107 13       		.uleb128 0x13
+ 1177 0108 898201   		.uleb128 0x4109
+ 1178 010b 01       		.byte	0x1
+ 1179 010c 11       		.uleb128 0x11
+ 1180 010d 01       		.uleb128 0x1
+ 1181 010e 31       		.uleb128 0x31
+ 1182 010f 13       		.uleb128 0x13
+ 1183 0110 00       		.byte	0
+ 1184 0111 00       		.byte	0
+ 1185 0112 14       		.uleb128 0x14
+ 1186 0113 8A8201   		.uleb128 0x410a
+ 1187 0116 00       		.byte	0
+ 1188 0117 02       		.uleb128 0x2
+ 1189 0118 0A       		.uleb128 0xa
+ 1190 0119 9142     		.uleb128 0x2111
+ 1191 011b 0A       		.uleb128 0xa
+ 1192 011c 00       		.byte	0
+ 1193 011d 00       		.byte	0
+ 1194 011e 15       		.uleb128 0x15
+ 1195 011f 2E       		.uleb128 0x2e
+ 1196 0120 00       		.byte	0
+ 1197 0121 3F       		.uleb128 0x3f
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 22
+
+
+ 1198 0122 0C       		.uleb128 0xc
+ 1199 0123 03       		.uleb128 0x3
+ 1200 0124 0E       		.uleb128 0xe
+ 1201 0125 3A       		.uleb128 0x3a
+ 1202 0126 0B       		.uleb128 0xb
+ 1203 0127 3B       		.uleb128 0x3b
+ 1204 0128 0B       		.uleb128 0xb
+ 1205 0129 27       		.uleb128 0x27
+ 1206 012a 0C       		.uleb128 0xc
+ 1207 012b 11       		.uleb128 0x11
+ 1208 012c 01       		.uleb128 0x1
+ 1209 012d 12       		.uleb128 0x12
+ 1210 012e 01       		.uleb128 0x1
+ 1211 012f 40       		.uleb128 0x40
+ 1212 0130 0A       		.uleb128 0xa
+ 1213 0131 9742     		.uleb128 0x2117
+ 1214 0133 0C       		.uleb128 0xc
+ 1215 0134 00       		.byte	0
+ 1216 0135 00       		.byte	0
+ 1217 0136 16       		.uleb128 0x16
+ 1218 0137 2E       		.uleb128 0x2e
+ 1219 0138 01       		.byte	0x1
+ 1220 0139 3F       		.uleb128 0x3f
+ 1221 013a 0C       		.uleb128 0xc
+ 1222 013b 03       		.uleb128 0x3
+ 1223 013c 0E       		.uleb128 0xe
+ 1224 013d 3A       		.uleb128 0x3a
+ 1225 013e 0B       		.uleb128 0xb
+ 1226 013f 3B       		.uleb128 0x3b
+ 1227 0140 05       		.uleb128 0x5
+ 1228 0141 27       		.uleb128 0x27
+ 1229 0142 0C       		.uleb128 0xc
+ 1230 0143 3C       		.uleb128 0x3c
+ 1231 0144 0C       		.uleb128 0xc
+ 1232 0145 00       		.byte	0
+ 1233 0146 00       		.byte	0
+ 1234 0147 17       		.uleb128 0x17
+ 1235 0148 05       		.uleb128 0x5
+ 1236 0149 00       		.byte	0
+ 1237 014a 49       		.uleb128 0x49
+ 1238 014b 13       		.uleb128 0x13
+ 1239 014c 00       		.byte	0
+ 1240 014d 00       		.byte	0
+ 1241 014e 00       		.byte	0
+ 1242              		.section	.debug_loc,"",@progbits
+ 1243              	.Ldebug_loc0:
+ 1244              	.LLST0:
+ 1245 0000 00000000 		.4byte	.LFB2
+ 1246 0004 00000000 		.4byte	.LCFI0
+ 1247 0008 0002     		.2byte	0x2
+ 1248 000a 71       		.byte	0x71
+ 1249 000b 00       		.sleb128 0
+ 1250 000c 00000000 		.4byte	.LCFI0
+ 1251 0010 00000000 		.4byte	.LCFI1
+ 1252 0014 0002     		.2byte	0x2
+ 1253 0016 71       		.byte	0x71
+ 1254 0017 10       		.sleb128 16
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 23
+
+
+ 1255 0018 00000000 		.4byte	.LCFI1
+ 1256 001c 00000000 		.4byte	.LFE2
+ 1257 0020 0002     		.2byte	0x2
+ 1258 0022 71       		.byte	0x71
+ 1259 0023 00       		.sleb128 0
+ 1260 0024 00000000 		.4byte	0
+ 1261 0028 00000000 		.4byte	0
+ 1262              	.LLST1:
+ 1263 002c 00000000 		.4byte	.LVL0
+ 1264 0030 00000000 		.4byte	.LVL1
+ 1265 0034 0001     		.2byte	0x1
+ 1266 0036 53       		.byte	0x53
+ 1267 0037 00000000 		.4byte	.LVL1
+ 1268 003b 00000000 		.4byte	.LVL4
+ 1269 003f 0001     		.2byte	0x1
+ 1270 0041 6F       		.byte	0x6f
+ 1271 0042 00000000 		.4byte	.LVL4
+ 1272 0046 00000000 		.4byte	.LFE2
+ 1273 004a 0004     		.2byte	0x4
+ 1274 004c F3       		.byte	0xf3
+ 1275 004d 01       		.uleb128 0x1
+ 1276 004e 53       		.byte	0x53
+ 1277 004f 9F       		.byte	0x9f
+ 1278 0050 00000000 		.4byte	0
+ 1279 0054 00000000 		.4byte	0
+ 1280              		.section	.debug_aranges,"",@progbits
+ 1281 0000 00000024 		.4byte	0x24
+ 1282 0004 0002     		.2byte	0x2
+ 1283 0006 00000000 		.4byte	.Ldebug_info0
+ 1284 000a 04       		.byte	0x4
+ 1285 000b 00       		.byte	0
+ 1286 000c 0000     		.2byte	0
+ 1287 000e 0000     		.2byte	0
+ 1288 0010 00000000 		.4byte	.LFB2
+ 1289 0014 00000058 		.4byte	.LFE2-.LFB2
+ 1290 0018 00000000 		.4byte	.LFB3
+ 1291 001c 00000018 		.4byte	.LFE3-.LFB3
+ 1292 0020 00000000 		.4byte	0
+ 1293 0024 00000000 		.4byte	0
+ 1294              		.section	.debug_ranges,"",@progbits
+ 1295              	.Ldebug_ranges0:
+ 1296 0000 00000000 		.4byte	.LFB2
+ 1297 0004 00000000 		.4byte	.LFE2
+ 1298 0008 00000000 		.4byte	.LFB3
+ 1299 000c 00000000 		.4byte	.LFE3
+ 1300 0010 00000000 		.4byte	0
+ 1301 0014 00000000 		.4byte	0
+ 1302              		.section	.debug_line,"",@progbits
+ 1303              	.Ldebug_line0:
+ 1304 0000 0000025B 		.section	.debug_str,"MS",@progbits,1
+ 1304      00020000 
+ 1304      02200201 
+ 1304      FB0E0D00 
+ 1304      01010101 
+ 1305              	.LASF9:
+ 1306 0000 6C6F6E67 		.string	"long long int"
+ 1306      206C6F6E 
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 24
+
+
+ 1306      6720696E 
+ 1306      7400
+ 1307              	.LASF3:
+ 1308 000e 5F5F7569 		.string	"__uint8_t"
+ 1308      6E74385F 
+ 1308      7400
+ 1309              	.LASF35:
+ 1310 0018 443A5C47 		.string	"D:\\GitKraken\\SPC5Golfv2"
+ 1310      69744B72 
+ 1310      616B656E 
+ 1310      5C535043 
+ 1310      35476F6C 
+ 1311              	.LASF30:
+ 1312 0030 5254495F 		.string	"RTI_CVAL"
+ 1312      4356414C 
+ 1312      00
+ 1313              	.LASF34:
+ 1314 0039 2E2F636F 		.string	"./components/spc58xgxx_osal_component_rla/lib/src/systimer.c"
+ 1314      6D706F6E 
+ 1314      656E7473 
+ 1314      2F737063 
+ 1314      35387867 
+ 1315              	.LASF24:
+ 1316 0076 54464C47 		.string	"TFLG"
+ 1316      00
+ 1317              	.LASF1:
+ 1318 007b 756E7369 		.string	"unsigned char"
+ 1318      676E6564 
+ 1318      20636861 
+ 1318      7200
+ 1319              	.LASF31:
+ 1320 0089 5254495F 		.string	"RTI_TCTRL"
+ 1320      54435452 
+ 1320      4C00
+ 1321              	.LASF8:
+ 1322 0093 6C6F6E67 		.string	"long unsigned int"
+ 1322      20756E73 
+ 1322      69676E65 
+ 1322      6420696E 
+ 1322      7400
+ 1323              	.LASF5:
+ 1324 00a5 73686F72 		.string	"short unsigned int"
+ 1324      7420756E 
+ 1324      7369676E 
+ 1324      65642069 
+ 1324      6E7400
+ 1325              	.LASF22:
+ 1326 00b8 4356414C 		.string	"CVAL"
+ 1326      00
+ 1327              	.LASF25:
+ 1328 00bd 4144525F 		.string	"ADR_reserved0"
+ 1328      72657365 
+ 1328      72766564 
+ 1328      3000
+ 1329              	.LASF28:
+ 1330 00cb 4144525F 		.string	"ADR_reserved1"
+ 1330      72657365 
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 25
+
+
+ 1330      72766564 
+ 1330      3100
+ 1331              	.LASF39:
+ 1332 00d9 73797354 		.string	"sysTimeReset"
+ 1332      696D6552 
+ 1332      65736574 
+ 1332      00
+ 1333              	.LASF26:
+ 1334 00e6 4C544D52 		.string	"LTMR64H"
+ 1334      36344800 
+ 1335              	.LASF27:
+ 1336 00ee 4C544D52 		.string	"LTMR64L"
+ 1336      36344C00 
+ 1337              	.LASF33:
+ 1338 00f6 474E5520 		.ascii	"GNU C 4.9.4 20160726 (Sat May 27 11:09:55 CDT 2017         b"
+ 1338      4320342E 
+ 1338      392E3420 
+ 1338      32303136 
+ 1338      30373236 
+ 1339 0132 75696C64 		.ascii	"uild.sh"
+ 1339      2E7368
+ 1340 0139 20726576 		.string	" rev=gd8b6c20 s=F494 ELe200 -V release_gd8b6c20_build_Fed_ELe200_ML0) -mcall-sysv -mcpu=e
+ 1340      3D676438 
+ 1340      62366332 
+ 1340      3020733D 
+ 1340      46343934 
+ 1341              	.LASF7:
+ 1342 023a 5F5F7569 		.string	"__uint32_t"
+ 1342      6E743332 
+ 1342      5F7400
+ 1343              	.LASF20:
+ 1344 0245 4D444953 		.string	"MDIS"
+ 1344      00
+ 1345              	.LASF21:
+ 1346 024a 4C445641 		.string	"LDVAL"
+ 1346      4C00
+ 1347              	.LASF11:
+ 1348 0250 756E7369 		.string	"unsigned int"
+ 1348      676E6564 
+ 1348      20696E74 
+ 1348      00
+ 1349              	.LASF23:
+ 1350 025d 54435452 		.string	"TCTRL"
+ 1350      4C00
+ 1351              	.LASF10:
+ 1352 0263 6C6F6E67 		.string	"long long unsigned int"
+ 1352      206C6F6E 
+ 1352      6720756E 
+ 1352      7369676E 
+ 1352      65642069 
+ 1353              	.LASF12:
+ 1354 027a 75696E74 		.string	"uint8_t"
+ 1354      385F7400 
+ 1355              	.LASF15:
+ 1356 0282 7675696E 		.string	"vuint8_t"
+ 1356      74385F74 
+ 1356      00
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 26
+
+
+ 1357              	.LASF40:
+ 1358 028b 53504353 		.string	"SPCSetPeripheralClockMode"
+ 1358      65745065 
+ 1358      72697068 
+ 1358      6572616C 
+ 1358      436C6F63 
+ 1359              	.LASF36:
+ 1360 02a5 5049545F 		.string	"PIT_tag"
+ 1360      74616700 
+ 1361              	.LASF38:
+ 1362 02ad 7469636B 		.string	"ticks_per_sec"
+ 1362      735F7065 
+ 1362      725F7365 
+ 1362      6300
+ 1363              	.LASF17:
+ 1364 02bb 73697A65 		.string	"sizetype"
+ 1364      74797065 
+ 1364      00
+ 1365              	.LASF19:
+ 1366 02c4 4D444953 		.string	"MDIS_RTI"
+ 1366      5F525449 
+ 1366      00
+ 1367              	.LASF37:
+ 1368 02cd 73797354 		.string	"sysTimeSetup"
+ 1368      696D6553 
+ 1368      65747570 
+ 1368      00
+ 1369              	.LASF18:
+ 1370 02da 756E7573 		.string	"unused_0"
+ 1370      65645F30 
+ 1370      00
+ 1371              	.LASF16:
+ 1372 02e3 7675696E 		.string	"vuint32_t"
+ 1372      7433325F 
+ 1372      7400
+ 1373              	.LASF2:
+ 1374 02ed 73686F72 		.string	"short int"
+ 1374      7420696E 
+ 1374      7400
+ 1375              	.LASF4:
+ 1376 02f7 5F5F7569 		.string	"__uint16_t"
+ 1376      6E743136 
+ 1376      5F7400
+ 1377              	.LASF13:
+ 1378 0302 75696E74 		.string	"uint16_t"
+ 1378      31365F74 
+ 1378      00
+ 1379              	.LASF29:
+ 1380 030b 5254495F 		.string	"RTI_LDVAL"
+ 1380      4C445641 
+ 1380      4C00
+ 1381              	.LASF14:
+ 1382 0315 75696E74 		.string	"uint32_t"
+ 1382      33325F74 
+ 1382      00
+ 1383              	.LASF6:
+ 1384 031e 6C6F6E67 		.string	"long int"
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 27
+
+
+ 1384      20696E74 
+ 1384      00
+ 1385              	.LASF0:
+ 1386 0327 7369676E 		.string	"signed char"
+ 1386      65642063 
+ 1386      68617200 
+ 1387              	.LASF32:
+ 1388 0333 5254495F 		.string	"RTI_TFLG"
+ 1388      54464C47 
+ 1388      00
+ 1389              		.ident	"GCC: (GNU) 4.9.4 20160726 (Sat May 27 11:09:55 CDT 2017         build.sh rev=gd8b6c20 s=F4
+GAS LISTING C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s 			page 28
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 systimer.c
+C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s:10     .text.sysTimeSetup:00000000 sysTimeSetup
+C:\Users\bayra\AppData\Local\Temp\cc8EHEKn.s:86     .text.sysTimeReset:00000000 sysTimeReset
+
+UNDEFINED SYMBOLS
+SPCSetPeripheralClockMode

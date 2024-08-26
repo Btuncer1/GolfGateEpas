@@ -1,0 +1,283 @@
+----------------------------------------------------------
+
+  Connection Failed Report from
+  Basic UDE Target Interface, Version: 1.19.9
+  created: 08/26/24, 12:36:24
+
+----------------------------------------------------------
+
+Windows version:
+  Win8 ()
+  Admin: yes
+
+UDE version:
+  Release:  2021.05
+  Build:    8426
+  Path:     C:\Program Files\pls\UDE Starterkit 2021
+
+Target configuration file:
+  D:\GitKraken\SPC5Golfv2\UDE\stm_spc58ng84_cut2_discovery_starterkit_debug_jtag.cfg
+
+Error messages:
+  PpcJtagTargIntf: Can't connect target !
+  PpcJtagTargIntf: No JTAG client found !
+Please check:
+- target power supply
+- JTAG cable connection
+- target configuration
+
+Settings:
+  PortType:  CommDev
+  CommDevSel:  PortType=USB,Type=FTDI
+  JtagViaPod:  n
+  TargetPort:  Default
+  JtagTapNumber:  0
+  JtagNumOfTaps:  1
+  JtagNumIrBefore:  0
+  JtagNumIrAfter:  0
+  UseExtendedCanId:  n
+  JtagOverCanIdA:  0x00000001
+  JtagOverCanIdB:  0x00000002
+  JtagOverCanIdC:  0x00000003
+  JtagOverCanIdD:  0x00000004
+  JtagOverCanIdE:  0x00000005
+  JtagmTckSel:  3
+  JtagmInterFrameTimer:  0
+  MaxJtagClk:  5000
+  AdaptiveJtagPhaseShift:  y
+  JtagMuxPort:  0
+  JtagMuxWaitTime:  0
+  JtagIoType:  Jtag
+  EtksArbiterMode:  None
+  EtksMicroSecondTimeout:  100
+  CheckJtagId:  y
+  ConnOption:  Default
+  UseExtReset:  y
+  SetDebugEnableAb1DisablePin:  n
+  OpenDrainReset:  n
+  ResetWaitTime:  50
+  HaltAfterReset:  y
+  ChangeJtagClk:  4294967295
+  ExecInitCmds:  y
+  InvalidateCache:  y
+  ChangeMsr:  n
+  ChangeMsrValue:  0x00000000
+  ResetPulseLen:  5
+  InitScript Script:
+    // disable watchdog
+    SET 0xF4058010 0x0000C520
+    SET 0xF4058010 0x0000D928
+    SET 0xF4058000 0xFF00000A
+    
+    // cache invalidate
+    SETSPR 0x3F2 0x00000003 0x00000003
+    SETSPR 0x3F3 0x00000003 0x00000003
+    SETSPR 0x3F2 0x00000000 0x00000003
+    SETSPR 0x3F3 0x00000000 0x00000003
+    
+    // setup IVOPR
+    // points to internal flash at 0x01000000
+    SETSPR 0x3F 0x01000000 0xFFFFFFFF
+    
+    // setup SSCM error cfg for debug
+    //SET16 SSCM_ERROR 0x3
+    
+    // reset CGM_AC0_SC to reset value because ESR0/PORST do not do so
+    // CGM_AC0_SC must provide a valid clock in order to allow GTM debugging
+    SET CGM_AC0_SC 0x00000000
+    
+    // disable reset escalation
+    SET8 RGM_FRET 0x00
+    SET8 RGM_DRET 0x00
+    
+  ExecOnConnectCmds:  n
+  OnConnectScript Script:
+    
+  SimioAddr:  g_JtagSimioAccess
+  FreezeTimers:  y
+  AllowMmuSetup:  n
+  ExecOnStartCmds:  n
+  OnStartScript Script:
+    
+  ExecOnHaltCmds:  n
+  ExecOnHaltCmdsWhileHalted:  n
+  OnHaltScript Script:
+    
+  EnableProgramTimeMeasurement:  y
+  TimerForPTM:  Default
+  DefUserStreamChannel:  0
+  DontUseCachedRegisters:  n
+  AllowBreakOnUpdateBreakpoints:  n
+  ClearDebugStatusOnHalt:  y
+  UseRestartWhileRunningHandling:  n
+  DoNotEnableSwBrk:  n
+  TargetAppHandshakeMode:  None
+  TargetAppHandshakeTimeout:  100
+  TargetAppHandshakeParameter0:  0x00000000
+  TargetAppHandshakeParameter1:  0x00000000
+  TargetAppHandshakeParameter2:  0x00000000
+  TargetAppHandshakeParameter3:  0x00000000
+  UseNexus:  y
+  DoSramInit:  y
+  ForceCacheFlush:  n
+  IgnoreLockedLines:  n
+  HandleWdtBug:  n
+  ForceEndOfReset:  n
+  UseHwResetMode:  n
+  HwResetMode:  Simulate
+  WaitForEndOfBootCode:  n
+  HandleNexusAccessBug:  y
+  UseMasterNexusIfResetState:  y
+  UseLocalAddressTranslation:  y
+  Use64BitNexus:  n
+  InitSramOnlyWhenNotInitialized:  n
+  AllowHarrForUpdateDebugRegs:  n
+  HaltOnDnh:  y
+  AlwaysHaltOnDni:  y
+  EnableLowPowerDebugHandshake:  n
+  EnableLockstepDebug:  y
+  AddBranchBeforeGo:  n
+  InvalidTlbOnReset:  n
+  DoNotEnableTrapSwBrp:  n
+  AllowResetOnCheck:  n
+  BootPasswd0:  0xFEEDFACE
+  BootPasswd1:  0xCAFEBEEF
+  BootPasswd2:  0xFEEDFACE
+  BootPasswd3:  0xCAFEBEEF
+  BootPasswd4:  0xFEEDFACE
+  BootPasswd5:  0xCAFEBEEF
+  BootPasswd6:  0xFEEDFACE
+  BootPasswd7:  0xCAFEBEEF
+  PasswordFile:  
+  UsePasswordForUnlockDevice:  y
+  DisableE2EECC:  n
+  UseCore0ForNexusMemoryAccessWhileRunning:  n
+  ForceDniForDebugger:  n
+  HandleOvRamInitViaNarWorkaround:  n
+  ApplySPC58NE84XoscWorkaround:  y
+  ApplyEigerEdJtagWorkaround:  n
+  IsUsedByTester:  n
+  Mpc57xxClearPeripheralDebugAtNextCheckUserAppWhenRunning:  n
+  SlaveHasHalted:  n
+
+JTAG target infos:
+  JTAG-ID:           0x00000000
+  UsedJtagClk:       3000 kHz
+  ExtVoltage:        0.0 V
+  IntVoltageUsed:    n
+
+Target infos:
+  CoreName:  Core2
+  FullCoreName:  Controller0.Core2
+  ExtClock:  40000000
+  IntClock:  100000000
+  SysClock:  0
+  StmClock:  0
+  AccessToken:  0xB5CE
+  HasNexus:  n
+  BigEndian:  n
+  CanSimio:  n
+  CanPhysicalAccess:  n
+  HasSpe:  n
+  NumOfSimioChannels:  0
+  JtagId:  0x00000000
+  IsEarlyStep:  n
+  IsMaster:  y
+  MasterCoreName:  
+  IsMasterEnabled:  y
+  IsSlave:  n
+  BuddyDeviceDetected:  n
+  EtkConnected:  n
+  Data TLB size on target:  0x00000000
+  Instruction TLB size on target:  0x00000000
+  Shared TLB size on target:  0x00000000
+  Number of data TLB entries:  0x00000000
+  Number of instruction TLB entries:  0x00000000
+  Number of shared TLB entries:  0x00000000
+  Extended E200 MMU:  n
+  E200 MPU:  n
+  Data cache size:  0x00000000
+  Data cache ways:  0x00000000
+  Data cache sets:  0x00000000
+  Data cache entry size:  0x00000000
+  Instruction cache size:  0x00000000
+  Instruction cache ways:  0x00000000
+  Instruction cache sets:  0x00000000
+  Instruction cache entry size:  0x00000000
+  Unified Cache:  n
+  MCM base address:  0xF4028000
+  SIU base address:  0xF7FC0000
+  Nexus On Slave:  n
+  Core Number:  2
+  Has Wdt bug:  n
+  Length of IR register:  0x00000006
+  Has Data Value comparators:  y
+  Reset Mode:  0x00000008
+  STM timer base address:  0xF4070000
+  MC_ME base address:  0xF7FB8000
+  Core in Lockstep mode:  n
+  Core in DPM mode:  n
+  Core is HSM:  n
+  Core is Master of HSM:  n
+  Name of other Master Core:  
+  HsmBootEnabled:  n
+  Target has Nexus access bug:  n
+  Target has unlock JTAG capability:  y
+  Unlock JTAG password len:  0x00000100
+  Has JTAG unlock enable bit:  n
+  ExecuteOpcodeAddr:  0x01000000
+  IMEMBaseAddr:  0x52000000
+  IMEMSize:  0x00004000
+  DMEMBaseAddr:  0x52800000
+  DMEMSize:  0x00008000
+  BootCodeStartAddr:  0x00404100
+  HasCJtag:  y
+  HasLfast:  y
+  HasJtagOverCan:  y
+  HasNpcLowPowerHandshake:  n
+  HasLockstepDebug:  n
+  TargetIsForSpc5UdeStk:  y
+  PllCalc:  UDE.SPC58NEC2PllCalc
+  JtagIdWhiteList:  0x01110041,0x0FFFFFFF,0x01148041,0x0FFFFFFF
+  JtagIdBlackList:  0x00110041,0xFFFFFFFF,0x00148041,0xFFFFFFFF
+  DciPinControl:  EVTO0A=0x00000100,PF[14];EVTO0B=0x00000200,PF[15];EVTO0C=0x00000400,PM[4];EVTO0D=0x00000800,PM[5];EVTO1A=0x00001000,PH[11];EVTO1B=0x00002000,PK[14];EVTO1C=0x00004000,PM[6];EVTI0A=0x00000001,PF[14];EVTI0B=0x00000002,PF[15];EVTI0C=0x00000004,PM[4];EVTI0D=0x00000008,PM[5];EVTI1A=0x00000010,PH[11];EVTI1B=0x00000020,PK[14];EVTI1C=0x00000040,PM[6]
+  DciControl:  EVTO0EN=0x00000004;EVTO1EN=0x00000008;EVTI0EN=0x00000010;EVTI1EN=0x00000020
+  ChipJtagTapNumber:  0x00000000
+  ChipJtagTapNumber:  0x00000001
+  ChipJtagTapNumber:  0x00000000
+  ChipJtagTapNumber:  0x00000000
+  JtagChainType:  UNKNOWN
+  JtagChainNumber:  0x00000000
+  PowerPc system type:  MCKINLEY
+  PowerPc synchonized GO type:  MPC5XXXPAR
+  InactiveAfterReset:  n
+  UseTrueInactiveState:  y
+  NumOfActiveCores:  1
+
+Communication device:
+  Type/Firmware:  FtdiCommDev V2.2.1
+  Serial Number:  43212
+
+Communication protocol handler:
+  LastCmd:      0x0410
+  LastResult:   0xC000
+  ExpBytes:     580 (0x0244)
+  RetBytes:     580 (0x0244)
+  LastTimeout:  120010
+
+Protocol diagnostic output:
+  LastJtagApiAddr:   0x00000000
+  LastJtagApiSpr:    0x00000000
+  LastJtagApiDcr:    0x00000000
+  LastJtagApiError:  0x00000000
+  LastJtagApiStatus: 0x00000000
+  JtagApiErrorLine:  1721
+  JtagApiAddInfo0:   0x00000000
+  JtagApiAddInfo1:   0x00000000
+  ProtErrorLine:     5218
+  LowLevelDiag0:     DEADBEEF (3735928559)
+  LowLevelDiag1:     DEADBEEF (3735928559)
+  LowLevelDiag2:     DEADBEEF (3735928559)
+  LowLevelDiag3:     DEADBEEF (3735928559)
+
+
