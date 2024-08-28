@@ -32,7 +32,8 @@ void can3_rx(uint32_t msgbuf, CANRxFrame crfp) {
 					copyCANmsgs(&CANtx, &CANrx);
 
 					uint16_t speed_u16 = 0;
-					speed_u16 =((uint16_t) CANrx.data8[5] << 8 | CANrx.data8[4]);
+					speed_u16 =
+							((uint16_t) CANrx.data8[5] << 8 | CANrx.data8[4]);
 					float speedf = (float) speed_u16 * 0.01f;
 
 					//float speedf = Vehicle.WheelSpeed.ESP;
@@ -81,8 +82,20 @@ void can4_rx(uint32_t msgbuf, CANRxFrame crfp) {
 		CAND7.mcan->RXF0A.B.F0AI = CAND7.mcan->RXF0S.B.F0GI;
 		if (Relay) {
 			if (autonom) {
-				copyCANmsgs(&CANtx, &CANrx);
-				can_lld_transmit(&CAND4, CAN_QUEUE_TXBUFFER, &CANtx);
+				if (CANrx.ID == 0x13D) {
+					copyCANmsgs(&CANtx, &CANrx);
+
+					CANtx.data8[2] = 0x22;
+					CANtx.data8[3] = 0x02;
+
+					CANtx.data8[0] = Crc_CalculateCRC8H2F(CANtx.data8,
+							CANtx.DLC, 0x13D);
+					can_lld_transmit(&CAND4, CAN_QUEUE_TXBUFFER, &CANtx);
+
+				}else {
+					copyCANmsgs(&CANtx, &CANrx);
+					can_lld_transmit(&CAND4, CAN_QUEUE_TXBUFFER, &CANtx);
+				}
 
 			} else {
 				copyCANmsgs(&CANtx, &CANrx);
@@ -98,8 +111,7 @@ void can4_rx(uint32_t msgbuf, CANRxFrame crfp) {
 
 	}
 	clearCANerrors(&CAND7); //if exist
-}
-;
+};
 void can5_rx(uint32_t msgbuf, CANRxFrame crfp) {
 	(void) crfp;
 	(void) msgbuf;

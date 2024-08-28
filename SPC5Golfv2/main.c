@@ -72,7 +72,7 @@ portTASK_FUNCTION( vTaskParkAssist, pvParameters ) {
 		if (Relay) {
 			if(autonom)
 			{
-				Steering_assist(CAN1tx.data8, Setsteer, setTorque, 1);
+				Steering_assist(CAN1tx.data8, Setsteer, setTorque/2, 1);
 				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
 			}
 			else
