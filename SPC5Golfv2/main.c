@@ -25,9 +25,10 @@
 
 QueueHandle_t xQueue_CAN5;
 uint8_t Relay = 0, autonom = 0;
-float Setsteer =0;
+float Setsteer = 0;
 uint8_t setTorque;
-void parseinterface(float* setSteeringDegree, uint8_t* setTorque,uint8_t* autonomEnable, uint8_t* data);
+void parseinterface(float *setSteeringDegree, uint8_t *setTorque,
+		uint8_t *autonomEnable, uint8_t *data);
 portTASK_FUNCTION( vTaskCAN5, pvParameters ) {
 	(void) pvParameters;
 
@@ -49,9 +50,8 @@ portTASK_FUNCTION( vTaskCAN5, pvParameters ) {
 				txCl.data8[1] = RB_DEVICE_ID;
 				can_lld_transmit(&CAND8, CAN_QUEUE_TXBUFFER, &txCl);
 			}
-			if(CANRX.ID == 0x350)
-			{
-				parseinterface(&Setsteer, &setTorque,&autonom, CANRX.data8);
+			if (CANRX.ID == 0x350) {
+				parseinterface(&Setsteer, &setTorque, &autonom, CANRX.data8);
 			}
 		}
 
@@ -68,23 +68,26 @@ portTASK_FUNCTION( vTaskParkAssist, pvParameters ) {
 	CAN1tx.OPERATION = CAN_OP_CANFD;
 	CAN1tx.TYPE = CAN_ID_STD;
 	TickType_t xLastWakeTime = xTaskGetTickCount();
+
 	for (;;) {
 		if (Relay) {
-			if(autonom)
-			{
-				Steering_assist(CAN1tx.data8, Setsteer, setTorque/2, 1);
+			if (autonom) {
+
+				Steering_assist(CAN1tx.data8, Setsteer, setTorque / 2, 1);
 				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
-			}
-			else
-			{
+			} else {
+				static int cnt = 0;
 				Steering_assist(CAN1tx.data8, Setsteer, setTorque, 0);
-				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+				if (cnt++ % 50) {
+					can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+				}
+
 			}
 
-			if(autonom == 0 && preautonom ==1)
-			{
+			if (autonom == 0 && preautonom == 1) {
 				Steering_assist(CAN1tx.data8, Setsteer, setTorque, 0);
 				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+
 			}
 			preautonom = autonom;
 		}
@@ -136,12 +139,13 @@ int main(void) {
 
 	}
 }
-void parseinterface(float* setSteeringDegree, uint8_t* setTorque,uint8_t* autonomEnable, uint8_t* data)
-{
+void parseinterface(float *setSteeringDegree, uint8_t *setTorque,
+		uint8_t *autonomEnable, uint8_t *data) {
 	int16_t i16setsteer = 0;
 	i16setsteer = data[1] << 8 | data[0];
-	*setSteeringDegree = (float)i16setsteer * 0.02f;
+	*setSteeringDegree = (float) i16setsteer * 0.02f;
 	*setTorque = data[2];
 	*autonomEnable = data[3];
 
 }
+
