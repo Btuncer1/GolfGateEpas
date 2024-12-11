@@ -37,7 +37,7 @@ void can3_rx(uint32_t msgbuf, CANRxFrame crfp) {
 					float speedf = (float) speed_u16 * 0.01f;
 
 					//float speedf = Vehicle.WheelSpeed.ESP;
-					speedf = speedf > 9.0 ? 9.0 : speedf;
+					speedf = speedf > 5.0 ? 5.0 : speedf;
 					uint16_t speed = (uint16_t)(speedf * 100);
 
 					CANtx.data8[4] = speed & 0x00FF;
@@ -66,6 +66,7 @@ void can3_rx(uint32_t msgbuf, CANRxFrame crfp) {
 	clearCANerrors(&CAND4); //if exist
 }
 ;
+uint8_t steerdisconnected = 0;
 void can4_rx(uint32_t msgbuf, CANRxFrame crfp) {
 	(void) crfp;
 	(void) msgbuf;
@@ -102,6 +103,11 @@ void can4_rx(uint32_t msgbuf, CANRxFrame crfp) {
 				can_lld_transmit(&CAND4, CAN_QUEUE_TXBUFFER, &CANtx);
 			}
 
+		}
+		if(CANrx.ID == 0x13D)
+		{
+
+			steerdisconnected = CANrx.data8[3] & 0x01;
 		}
 
 		/* clear flag */

@@ -27,6 +27,7 @@ QueueHandle_t xQueue_CAN5;
 uint8_t Relay = 0, autonom = 0;
 float Setsteer = 0;
 uint8_t setTorque;
+extern uint8_t steerdisconnected;
 void parseinterface(float *setSteeringDegree, uint8_t *setTorque,
 		uint8_t *autonomEnable, uint8_t *data);
 portTASK_FUNCTION( vTaskCAN5, pvParameters ) {
@@ -68,27 +69,41 @@ portTASK_FUNCTION( vTaskParkAssist, pvParameters ) {
 	CAN1tx.OPERATION = CAN_OP_CANFD;
 	CAN1tx.TYPE = CAN_ID_STD;
 	TickType_t xLastWakeTime = xTaskGetTickCount();
-
+	static uint32_t msgcnt = 0;
 	for (;;) {
 		if (Relay) {
-			if (autonom) {
-
-				Steering_assist(CAN1tx.data8, Setsteer, (setTorque / 3)-25, 1);
-				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
-			} else {
-//				static int cnt = 0;
+//			if (autonom == 0) {
+//
 //				Steering_assist(CAN1tx.data8, Setsteer, setTorque, 0);
-//				if (cnt++ % 50) {
-//					can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
-//				}
+//				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+//
+//			} else
+			if (autonom == 1) {
 
-			}
+				if (msgcnt++ < 10) {
+					Steering_assist(CAN1tx.data8, Setsteer, setTorque, 0);
+					can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+				} else {
+					if(steerdisconnected)
+					{
+						Steering_assist(CAN1tx.data8, Setsteer, setTorque, 0);
+						can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+						steerdisconnected = 0;
+					}
+					else{
+						Steering_assist(CAN1tx.data8, Setsteer,
+								(setTorque / 3) , 1);
+						can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
+					}
 
-			if (autonom == 0 && preautonom == 1) {
+				}
+
+			} else if (autonom == 0 && preautonom == 1) {
 				Steering_assist(CAN1tx.data8, Setsteer, setTorque, 0);
 				can_lld_transmit(&CAND7, CAN_QUEUE_TXBUFFER, &CAN1tx);
-
+				msgcnt=0;
 			}
+
 			preautonom = autonom;
 		}
 
